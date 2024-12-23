@@ -75,6 +75,8 @@ public class RecipeUI {
         RecipeFileHandler recipeFileHandler = new RecipeFileHandler();
         //recipeFileHandlerのメソッドreadRecipes()を使用して、recipe.txtの中身をすべて読み取ったArrayListを作成
         ArrayList<String> recipes = recipeFileHandler.readRecipes();
+        //読み取ったArrayListの中身が空ではないかどうかの条件分岐
+        if(recipes.size() > 0) {
         System.out.println("Recipes:");
         System.out.println("-----------------------------------");
         //拡張for文でrecipesの中身をすべて取り出す
@@ -96,6 +98,10 @@ public class RecipeUI {
                 System.out.println();
                 System.out.println("-----------------------------------");
             }
+        } else {
+            System.out.println("No recipes available.");
+
+        }
     }
 
     /**
