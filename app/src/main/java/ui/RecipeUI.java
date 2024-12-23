@@ -37,9 +37,31 @@ public class RecipeUI {
                 switch (choice) {
                     case "1":
                         // 設問1: 一覧表示機能
+                        RecipeFileHandler recipeFileHandler = new RecipeFileHandler();
+                        ArrayList<String> resicpes = recipeFileHandler.readRecipes();
+                        System.out.println("Recipes:");
+                        System.out.println("-----------------------------------");
+                        for(String resi: resicpes) {
+                            String[] menu = resi.split(",");
+                            
+                                System.out.print("Recipe name ");
+                                System.out.print(menu[0]);
+                                System.out.println();
+                                System.out.print("Main Ingredients: ");
+                                int j = 0;
+                                for(int i = menu.length - 1 ; i > 0 ; i--) {
+                                    j++;
+                                    System.out.print(menu[j] + " ");
+                                }
+                                System.out.println();
+                                System.out.println("-----------------------------------");
+                            }
+                            
+                            
                         break;
                     case "2":
                         // 設問2: 新規登録機能
+                        addNewRecipe();
                         break;
                     case "3":
                         // 設問3: 検索機能
@@ -72,7 +94,20 @@ public class RecipeUI {
      * @throws java.io.IOException 入出力が受け付けられない
      */
     private void addNewRecipe() throws IOException {
+        try{
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Enter recipe name: ");
+        String recipeName = reader.readLine() + ",";
+        System.out.println("Enter main ingredients (comma separated): ");
+        String ingredients = reader.readLine();
 
+        RecipeFileHandler recipeFileHandler = new RecipeFileHandler();
+        recipeFileHandler.addRecipe(recipeName, ingredients);
+
+        System.out.println("Recipe added successfully.");
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
