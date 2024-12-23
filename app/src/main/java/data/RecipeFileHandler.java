@@ -20,21 +20,27 @@ public class RecipeFileHandler {
 
     /**
      * 設問1: 一覧表示機能
-     * recipes.txtからレシピデータを読み込み、それをリスト形式で返します。 <br> 
+     * recipes.txtからレシピデータを読み込み、それをリスト形式で返します。 <br>
      * IOExceptionが発生したときは<i>Error reading file: 例外のメッセージ</i>とコンソールに表示します。
      *
      * @return レシピデータ
      */
     public ArrayList<String> readRecipes() {
+        //String型のArrayList、recipesを作成
         ArrayList<String> recipes =new ArrayList<>();
+        //ファイルの読み込み
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
+            //ファイルの一行を読みとるが、何行あるか不明なのでnullが出るまで無限ループ
             while ((line = reader.readLine()) != null) {
+                //読み取った一行をrecipesに追加
                 recipes.add(line);
             }
         } catch (IOException e) {
+            //例外、IOExceptionが出た時のメッセージ
             System.out.println("Error reading file:" + e.getMessage());
         }
+        //最後にArrayListをreturnで返す
         return recipes;
     }
 
@@ -48,12 +54,17 @@ public class RecipeFileHandler {
      */
      //
     public void addRecipe(String recipeName, String ingredients) {
+        //ファイルの書き込み処理
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            //引数recipeNameを書き込む
             writer.write(recipeName);
+            //引数ingredientsを書き込む
             writer.write(ingredients);
-            writer.newLine(); // 書き込み後に改行する
+            // ↑の書き込み後に改行する
+            writer.newLine();
             
         } catch (IOException e) {
+            //IOExceptionが出た時のメッセージ
             System.out.println("Error reading file: " + e.getMessage());
         }
     }
